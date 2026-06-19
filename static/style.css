@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { font-family: 'Inter', sans-serif; background: #f0faf4; color: #0a0a0a; min-height: 100vh; }
+
+
+nav { background: #0a0a0a; display: flex; align-items: center; padding: 0 40px; height: 60px; gap: 4px; }
+nav .brand { color: #fff; font-weight: 800; font-size: 18px; margin-right: auto; }
+nav > a { color: #aaa; text-decoration: none; font-size: 15px; font-weight: 600; padding: 8px 16px; border-radius: 7px; transition: all 0.2s; }
+nav > a:hover, nav > a.active { color: #fff; background: #1f1f1f; }
+
+
+.dropdown { position: relative; }
+.dropdown > .drop-btn { color: #aaa; font-size: 15px; font-weight: 600; padding: 8px 16px; border-radius: 7px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; background: none; border: none; font-family: 'Inter', sans-serif; }
+.dropdown > .drop-btn:hover, .dropdown > .drop-btn.active { color: #fff; background: #1f1f1f; }
+.dropdown > .drop-btn .arrow { font-size: 10px; transition: transform 0.2s; }
+.drop-menu { display: none; position: absolute; top: calc(100% + 8px); right: 0; background: #111; border: 1px solid #2a2a2a; border-radius: 10px; min-width: 220px; padding: 6px; z-index: 100; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+.drop-menu a { display: block; color: #ccc; text-decoration: none; font-size: 14px; font-weight: 500; padding: 9px 14px; border-radius: 7px; transition: all 0.15s; }
+.drop-menu a:hover { background: #1f6b3a; color: #fff; }
+.drop-label { color: #555; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 8px 14px 4px; }
+.drop-menu.open { display: block; }
+.arrow.rotated { transform: rotate(180deg); }
+
+
+.page { max-width: 920px; margin: 40px auto; padding: 0 20px; }
+h1 { font-size: 32px; font-weight: 800; color: #0a0a0a; margin-bottom: 6px; }
+h2 { font-size: 17px; font-weight: 800; color: #0a0a0a; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 3px solid #16a34a; }
+.sub { color: #444; font-size: 15px; font-weight: 500; margin-bottom: 30px; }
+
+
+.card { background: #fff; border: 1px solid #bbf7d0; border-radius: 12px; padding: 30px; margin-bottom: 22px; box-shadow: 0 2px 8px rgba(22,163,74,0.08); }
+.sec-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 3px solid #16a34a; }
+.sec-head h2 { margin: 0; padding: 0; border: none; }
+
+
+.btn { display: inline-block; padding: 12px 28px; border-radius: 8px; font-size: 15px; font-weight: 700; text-decoration: none; cursor: pointer; border: none; font-family: 'Inter', sans-serif; transition: all 0.2s; }
+.btn-green { background: #16a34a; color: #fff; box-shadow: 0 3px 12px rgba(22,163,74,0.3); }
+.btn-green:hover { background: #15803d; }
+.btn-black { background: #0a0a0a; color: #fff; }
+.btn-black:hover { background: #222; }
+.btn-outline { background: #fff; color: #0a0a0a; border: 2px solid #0a0a0a; }
+.btn-outline:hover { background: #0a0a0a; color: #fff; }
+.btn-sm { padding: 6px 14px; font-size: 13px; border-radius: 7px; }
+.btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-row .btn { flex: 1; min-width: 130px; text-align: center; }
+
+
+.upload-box { border: 2px dashed #86efac; border-radius: 10px; padding: 40px; text-align: center; background: #f0fdf4; margin-bottom: 20px; }
+.upload-box p { color: #555; font-size: 15px; font-weight: 500; margin-top: 10px; }
+input[type="file"] { font-size: 15px; color: #0a0a0a; font-weight: 600; }
+
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; margin-bottom: 22px; }
+.stat { background: #f0fdf4; border: 1px solid #86efac; border-radius: 10px; padding: 18px; text-align: center; }
+.stat .val { font-size: 30px; font-weight: 800; color: #15803d; display: block; }
+.stat .lbl { font-size: 12px; color: #333; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+
+
+.info-row { display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid #dcfce7; font-size: 15px; }
+.info-row span:first-child { color: #333; font-weight: 600; }
+.info-row span:last-child { font-weight: 800; color: #0a0a0a; }
+
+
+.tbl-wrap { overflow-x: auto; border: 1px solid #bbf7d0; border-radius: 10px; margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+thead { background: #f0fdf4; }
+th { padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; color: #15803d; border-bottom: 2px solid #bbf7d0; }
+td { padding: 11px 16px; color: #0a0a0a; border-bottom: 1px solid #dcfce7; font-size: 14px; font-weight: 500; }
+td:first-child { font-weight: 700; }
+tr:last-child td { border-bottom: none; }
+tr:hover { background: #f0fdf4; }
+.syntax-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+.syntax-ok {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+}
+
+.syntax-err {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+
+/* ── Parser error table – error message column ────────────── */
+
+.err-msg {
+  font-family: monospace;
+  font-size: 0.88rem;
+  color: #b91c1c;
+}
+
+
+/* ── Source code viewer ───────────────────────────────────── */
+
+.src-viewer {
+  margin-top: 1rem;
+}
+
+.src-viewer summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #4b5563;
+  user-select: none;
+  padding: 0.4rem 0;
+}
+
+.src-viewer summary:hover {
+  color: #111827;
+}
+
+.src-block {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  margin-top: 0.5rem;
+  white-space: pre;
+}
+
+.ln-num {
+  color: #6c7086;
+  user-select: none;
+  margin-right: 0.25rem;
+}
+
+
+/* ── Keyword highlighting inside source viewer ────────────── */
+/*   Applied via JS (optional).  Class injected by highlightKeywords() below. */
+
+.kw-highlight {
+  color: #cba6f7;   /* purple – keywords  */
+  font-weight: 600;
+}
+
+footer { text-align: center; color: #666; font-size: 13px; font-weight: 500; padding: 36px 0; }

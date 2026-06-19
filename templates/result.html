@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Results - W++ Analyzer</title>
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+
+<nav>
+  <span class="brand">W++ Analyzer</span>
+  <a href="/">Home</a>
+  <a href="/upload">Upload</a>
+  <div class="dropdown">
+  <button class="drop-btn active" id="dropBtn">Results <span class="arrow" id="dropArrow">&#9660;</span></button>
+  <div class="drop-menu" id="ddMenu">
+    <div class="drop-label">Jump to Section</div>
+    <a href="#overall">Overall Summary</a>
+    <a href="#syntax">Syntax Analysis</a>
+    <a href="#token-summary">Token Type Summary</a>
+    <a href="#line-dist">Line Distribution</a>
+    <a href="#identifiers">Identifier Statistics</a>
+    <a href="#literals">Literal Statistics</a>
+  </div>
+</div>
+</nav>
+
+<div class="page">
+  <h1>Analysis Results</h1>
+  <p class="sub">Lexical &amp; syntax analysis complete</p>
+
+  <!-- Overall Summary -->
+  <div class="card" id="overall">
+    <div class="sec-head">
+      <h2>Overall Summary</h2>
+      <a href="#" class="btn btn-outline btn-sm" onclick="location.reload(); return false;">&#8635; Refresh</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="val">{{ overall.total_tokens }}</span><span class="lbl">Total Tokens</span></div>
+      <div class="stat"><span class="val">{{ overall.unique_token_types }}</span><span class="lbl">Unique Types</span></div>
+      <div class="stat"><span class="val">{{ overall.lines_with_code }}</span><span class="lbl">Lines with Code</span></div>
+      <div class="stat"><span class="val">{{ overall.avg_tokens_per_line }}</span><span class="lbl">Avg / Line</span></div>
+    </div>
+    <div class="info-row"><span>Most Frequent Token</span><span>{{ overall.most_frequent }}</span></div>
+    <div class="info-row"><span>Least Frequent Token</span><span>{{ overall.least_frequent }}</span></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Syntax Analysis  (NEW SECTION)                         -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="card" id="syntax">
+    <div class="sec-head">
+      <h2>Syntax Analysis</h2>
+      <a href="#" class="btn btn-outline btn-sm" onclick="location.reload(); return false;">&#8635; Refresh</a>
+    </div>
+
+    <!-- Status banner -->
+    {% if syntax_valid %}
+      <div class="syntax-status syntax-ok">
+        &#10003; Syntax Valid &mdash; No errors detected
+      </div>
+    {% else %}
+      <div class="syntax-status syntax-err">
+        &#10007; Syntax Errors Found &mdash; {{ parse_errors | length }} error(s)
+      </div>
+    {% endif %}
+
+    <!-- Parser error table (only shown when errors exist) -->
+    {% if parse_errors %}
+    <div class="tbl-wrap" style="margin-top: 1rem;">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 80px;">Line</th>
+            <th>Error Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for err in parse_errors %}
+          <tr>
+            <td>{{ err.line }}</td>
+            <td class="err-msg">{{ err.message }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+
+    <!-- Source code viewer (collapsible) -->
+    {% if source_code %}
+    <details class="src-viewer">
+      <summary>View Source Code</summary>
+      <pre class="src-block">{{ source_code }}</pre>
+    </details>
+    {% endif %}
+
+  </div>
+  <!-- /Syntax Analysis -->
+
+  <!-- Token Type Summary -->
+  <div class="card" id="token-summary">
+    <div class="sec-head">
+      <h2>Token Type Summary</h2>
+      <a href="#" class="btn btn-outline btn-sm" onclick="location.reload(); return false;">&#8635; Refresh</a>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Token Type</th><th>Category</th><th>Quantity</th><th>Percentage</th><th>Line Numbers</th></tr></thead>
+        <tbody>
+          {% for t, data in summary.items() %}
+          <tr><td>{{ t }}</td><td>{{ data.category }}</td><td>{{ data.count }}</td><td>{{ "%.2f"|format(data.percentage) }}%</td><td>{{ data.lines | sort | join(', ') }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Line Distribution -->
+  <div class="card" id="line-dist">
+    <div class="sec-head">
+      <h2>Line-wise Token Distribution</h2>
+      <a href="#" class="btn btn-outline btn-sm" onclick="location.reload(); return false;">&#8635; Refresh</a>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Line Number</th><th>Total Tokens</th></tr></thead>
+        <tbody>
+          {% for line, count in line_distribution.items() %}
+          <tr><td>{{ line }}</td><td>{{ count }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Identifier Statistics -->
+  <div class="card" id="identifiers">
+    <div class="sec-head">
+      <h2>Identifier Statistics</h2>
+      <a href="#" class="btn btn-outline btn-sm" onclick="location.reload(); return false;">&#8635; Refresh</a>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Identifier</th><th>Frequency</th><th>Line Numbers</th></tr></thead>
+        <tbody>
+          {% for name, data in identifiers.items() %}
+          <tr><td>{{ name }}</td><td>{{ data.count }}</td><td>{{ data.lines | sort | join(', ') }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Literal Statistics -->
+  <div class="card" id="literals">
+    <div class="sec-head">
+      <h2>Literal Statistics</h2>
+      <a href="#" class="btn btn-outline btn-sm" onclick="location.reload(); return false;">&#8635; Refresh</a>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Value</th><th>Type</th><th>Frequency</th><th>Line Numbers</th></tr></thead>
+        <tbody>
+          {% for val, data in literals.items() %}
+          <tr><td>{{ val }}</td><td>{{ data.type }}</td><td>{{ data.count }}</td><td>{{ data.lines | sort | join(', ') }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="btn-row">
+      <a href="/upload" class="btn btn-green">Change Input File</a>
+      <a href="#" onclick="window.print()" class="btn btn-black">Print Report</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>W++ Token Analyzer &mdash; Compiler Construction</footer>
+<script>
+  var btn = document.getElementById('dropBtn');
+  var menu = document.getElementById('ddMenu');
+  var arrow = document.getElementById('dropArrow');
+  btn.addEventListener('click', function() {
+    menu.classList.toggle('open');
+    arrow.classList.toggle('rotated');
+  });
+</script>
+</body>
+</html>

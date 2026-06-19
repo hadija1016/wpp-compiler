@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload - W++ Analyzer</title>
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+
+<nav>
+  <span class="brand">W++ Analyzer</span>
+  <a href="/">Home</a>
+  <a href="/upload" class="active">Upload</a>
+</nav>
+
+<div class="page">
+  <h1>Upload File</h1>
+  <p class="sub">Select a .wpp file — analysis starts automatically</p>
+
+  <div class="card">
+    <h2>Choose File</h2>
+    <form action="/analyze" method="post" enctype="multipart/form-data">
+      <div class="upload-box">
+        <input type="file" name="file" accept=".wpp" required onchange="this.form.submit()">
+        <p>Accepts .wpp files only &mdash; results load automatically</p>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer>W++ Token Analyzer &mdash; Compiler Construction</footer>
+</body>
+</html>
