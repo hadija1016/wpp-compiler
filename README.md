@@ -38,7 +38,7 @@ wpp-compiler/
 
 ## Supported W++ Syntax
 
-```cpp
+```wpp
 // Variable declarations
 int x = 5;
 int a = 1, b, c = 3;
